@@ -1,32 +1,8 @@
 import "./employees-list-item.css";
-import {Component} from "react";
 
+const EmployeesListItem = (props) => {
 
-class EmployeesListItem extends Component{
-constructor (props) {
-    super(props);
-    this.state = {
-        increase: false,
-        promotion: false
-    }
-}
-
-onIncrease = () => {
-    this.setState(({increase}) => ({
-        increase: !increase
-    }))
-}
-
-onPromotion = () => {
-    this.setState(({promotion}) => ({
-        promotion:!promotion
-    }))
-}
-
-render() {
-
-    const {name, salary, onDelete} = this.props;
-    const {increase, promotion} = this.state;
+    const {name, salary, onDelete, onToggleProp, increase, promotion} = props;
 
     let classNames = "list-group-item d-flex justify-content-between";
     if (increase) 
@@ -41,12 +17,13 @@ console.log(classNames)
  
     return (
         <li className={classNames}>
-            <span className="list-group-item-label" onClick = {this.onPromotion}>{name}</span>
+            <span className="list-group-item-label" onClick = {onToggleProp} data-toggle="promotion">{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm "
-                    onClick={this.onIncrease}>
+                    onClick={onToggleProp}
+                    data-toggle="increase">
                     <i className="fas fa-cookie"></i>
                 </button>
 
@@ -59,7 +36,7 @@ console.log(classNames)
             </div>
         </li>
     )
-} 
+
 
 }
 
